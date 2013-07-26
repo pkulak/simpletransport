@@ -14,18 +14,26 @@ less resources than http.Transport in these applications.
 
 ## Example
 
+    package main
+
     import (
-            "github.com/pkulak/simpletransport/simpletransport"
-            "net/http"
-            "time"
+        "fmt"
+        "github.com/pkulak/simpletransport/simpletransport"
+        "io/ioutil"
+        "net/http"
+        "time"
     )
 
     func main() {
         client := &http.Client{
             Transport: &simpletransport.SimpleTransport{
-                ReadTimeout: 10 * time.Second,
+                ReadTimeout:    10 * time.Second,
                 RequestTimeout: 15 * time.Second,
             },
         }
-        ...
+
+        resp, _ := client.Get("http://jsonip.com")
+        body, _ := ioutil.ReadAll(resp.Body)
+        resp.Body.Close()
+        fmt.Println(string(body))
     }
