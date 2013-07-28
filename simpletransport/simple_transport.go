@@ -121,7 +121,7 @@ func (this *SimpleTransport) dial(req *http.Request) (net.Conn, error) {
 		c = newDeadlineConn(c, this.ReadTimeout)
 
 		if this.RequestTimeout > 0 {
-			c = newTimeoutConn(c, this.ReadTimeout)
+			c = newTimeoutConn(c, this.RequestTimeout)
 		}
 	}
 
