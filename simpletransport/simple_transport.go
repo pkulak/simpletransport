@@ -175,11 +175,8 @@ type connCloser struct {
 }
 
 func (this *connCloser) Close() error {
-	if err := this.ReadCloser.Close(); err != nil {
-		return err
-	}
-
-	return this.conn.Close()
+	this.conn.Close()
+	return this.ReadCloser.Close()
 }
 
 // A connection wrapper that times out after a period of time with no data sent.
